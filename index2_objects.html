@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style type="text/css">
+  
+    body{
+      font-family: verdana;
+    }
+    
+    h1,h2,h3 {
+      color: darkblue;
+    }
+    .rating-circle {
+      height: 2em;
+      width: 2em;
+      border: .1em solid #000;
+      border-radius: 1.1em;
+      display: inline-block;
+      margin: 0em;
+      margin-top: 2em;
+      padding: .1em;
+    }
+    
+    .rating-hover {
+      background-color: yellow;
+    }
+    
+    .rating-chosen {
+      background-color: green;
+    }
+    
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+  <h1>Finding elements using jQuery</h1>
+  <div>This session is about identifying elements using jQuery methods and selectors.</div>
+  <div id="rating-container">
+    <div class="rating-circle" id="1"></div>
+    <div class="rating-circle" id="2"></div>
+    <div class="rating-circle" id="3"></div>
+    <div class="rating-circle" id="4"></div>
+    <div class="rating-circle" id="5"></div>
+    <div class="rating-circle" id="6"></div>
+    <div class="rating-circle" id="7"></div>
+    <div class="rating-circle" id="8"></div>
+  </div>
+  <script type="text/javascript">
+  
+$(document).ready(function () {
+	var RatingBar = {
+		valueView: 0,
+		valuePreview: 0,
+
+		ToPreview: function(val){
+			this.valuePreview = val;
+			this.Show(this.valuePreview, 'rating-hover');
+		},
+
+		ToView: function(val){
+			this.valueView = val;
+			this.Show(this.valueView, 'rating-chosen');
+		},
+
+		Show: function(val, style){
+			this.Clear();
+			for (var i = 1; i <= val; i++){
+				$("#" + i).addClass(style);
+			}
+		},
+
+		Clear: function(){
+			for (var i = 1; i <= 8; i++){
+				$("#" + i).removeClass('rating-hover');
+				$("#" + i).removeClass('rating-chosen');
+			}
+		}
+	};
+	
+	$('.rating-circle').hover(function () {
+		RatingBar.ToPreview(this.id);
+	});
+	
+	$('.rating-circle').mouseout(function () {
+		RatingBar.ToView(RatingBar.valueView);
+	});
+
+	$('.rating-circle').click(function () {
+		RatingBar.ToView(this.id);
+	});	
+});
+    </script>
+</body>
+</html>
